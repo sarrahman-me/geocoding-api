@@ -9,22 +9,22 @@ import axios from 'axios';
 
 @Controller('/maps/distance-matrix')
 
-/*
-    DistanceController adalah controller yang menangani perhitungan jarak antara dua alamat
-*/
+/**
+ * DistanceController adalah controller yang menangani perhitungan jarak antara dua alamat
+ */
 export class DistanceController {
-  /* 
-        Method [GET] untuk mengambil matrix jarak dari dua query
-  */
+  /**
+   * Method [GET] untuk mengambil matrix jarak dari dua query
+   */
 
   @Get()
   async distanceMatrix(
     @Query('origins') origins: string,
     @Query('destinations') destinations: string,
   ): Promise<any> {
-    /*
-        Validasi pada query dari client
-    */
+    /**
+     * Validasi pada query dari client
+     */
 
     if (!origins || !destinations) {
       throw new HttpException(
@@ -43,9 +43,9 @@ export class DistanceController {
     }
 
     try {
-      /*
-            mengambil data matrix dari api distancematrix.ai
-        */
+      /**
+       *  mengambil data matrix dari api distancematrix.ai
+       */
 
       const responseApi = await axios.get(
         `https://api.distancematrix.ai/maps/api/distancematrix/json?origins=${origins}&destinations=${destinations}&key=${process.env.DISTANCE_MATRIX_API_KEY}`,
@@ -53,9 +53,9 @@ export class DistanceController {
 
       const result = responseApi.data;
 
-      /*
-        menjabarkan hasil response yang dibutuhkan 
-      */
+      /**
+       * menjabarkan hasil response yang dibutuhkan
+       */
 
       const data = {
         destination_addresses: result?.destination_addresses,
@@ -66,9 +66,9 @@ export class DistanceController {
 
       return data;
     } catch (error) {
-      /*
-        handle error tak terduga
-    */
+      /**
+       * handle error tak terduga
+       */
 
       throw new HttpException(
         error || 'Kesalahan server',

@@ -9,19 +9,19 @@ import axios from 'axios';
 
 @Controller('/maps/geocoding')
 
-/*
-    GeocodingClass adalah controller yang menangani permintaan terkait geokoding.
-*/
+/**
+ * GeocodingClass adalah controller yang menangani permintaan terkait geokoding.
+ */
 export class GeocodingController {
-  /*
-    Endpoint untuk pencarian lokasi / alamat
-  */
+  /**
+   * Endpoint untuk pencarian lokasi / alamat
+   */
 
   @Get('search/:alamat')
   async searchPlace(@Param('alamat') alamat: string): Promise<any> {
-    /*
-      Memeriksa apakah parameter alamat ada
-    */
+    /**
+     * Memeriksa apakah parameter alamat ada
+     */
 
     if (!alamat) {
       throw new HttpException(
@@ -40,9 +40,9 @@ export class GeocodingController {
     }
 
     try {
-      /*
-        Mengambil semua data alamat dari api geocode.maps.co
-      */
+      /**
+       * Mengambil semua data alamat dari api geocode.maps.co
+       */
 
       const result = await axios.get(
         `https://geocode.maps.co/search?q=${alamat}`,
@@ -61,9 +61,9 @@ export class GeocodingController {
         data: data,
       };
     } catch (error) {
-      /*
-        Mengembalikan kesalahan tak terduga
-      */
+      /**
+       * Mengembalikan kesalahan tak terduga
+       */
 
       throw new HttpException(
         error || 'Server Error',
